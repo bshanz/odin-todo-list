@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo List</title>
+  </head>
+  <body>
+    <script defer src="bundle.js"></script>
+    <div id="content" class="content">
+      <div class="header">
+        <h1>To-Do List</h1>
+      </div>
+      <div class="sidebar">
+        <button class="new-task">+ New Task</button>
+        <h2>Tasks</h2>
+        <button class="button-side">All tasks</button>
+        <button class="button-side">Today</button>
+        <button class="button-side">This week</button>
+        <h2>Projects</h2>
+        <button class="button-side">+ New Project</button>
+      </div>
+      <div class="grid">
+        <div class="todo-card">
+          <div class="todo-content">
+            <div class="upper-card">
+              <h3>Title:</h3>
+              <p>Description:</p>
+              <div class="due-container">
+                <label for="due-date">Due Date:</label>
+                <input type="date" id="birthday" name="birthday" />
+              </div>
+            </div>
+            <div class="lower-card">
+              <button class="button">
+                Done
+                <span></span>
+                <button class="remove">Remove</button>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <h3>Footer</h3>
+      </div>
+    </div>
+  </body>
+</html>
