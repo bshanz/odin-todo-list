@@ -100,7 +100,7 @@ h1 {
   flex: 1;
 }
 
-.due-container {
+.date-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -122,7 +122,6 @@ h1 {
 .button {
   border: none;
   display: block;
-  position: relative;
   padding: 0.7em 2.4em;
   font-size: 18px;
   background: transparent;
@@ -130,7 +129,6 @@ h1 {
   user-select: none;
   overflow: hidden;
   color: royalblue;
-  z-index: 1;
   font-family: inherit;
   font-weight: 500;
   border: 4px solid royalblue;
@@ -138,67 +136,16 @@ h1 {
   width: 60%;
 }
 
-.button span {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  z-index: -1;
-}
-
-.button span::before {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 8%;
-  height: 500%;
-  background: var(--lightgray);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-60deg);
-  transition: all 0.3s;
-}
-
-.button:hover span::before {
-  transform: translate(-50%, -50%) rotate(-90deg);
-  width: 100%;
-  background: royalblue;
-}
-
 .button:hover {
   color: white;
+  background-color: royalblue;
 }
 
-.button:active span::before {
-  background: #2751cd;
-}
 
-.button-side {
-  background-color: transparent;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  outline: none;
-  color: white;
-  font-size: 1.5rem;
-}
-
-.button-side:hover {
-  background-color: transparent;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  outline: none;
-  color: white;
-  font-size: 1.55rem;
-}
 
 /* From uiverse.io */
-.new-task {
+.new-task,
+#submitTask {
   padding: 1.3em 3em;
   font-size: 1rem;
   text-transform: uppercase;
@@ -216,7 +163,7 @@ h1 {
 
 .new-task:hover {
   background-color: white;
-  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  box-shadow: 0px 15px 20px rgba(252, 252, 252, 0.4);
   transform: translateY(-7px);
 }
 
@@ -238,3 +185,115 @@ h2 {
   overflow: hidden;
   outline: none;
 }
+
+/* The Modal (background) and form */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: white;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 30px;
+  padding-left: 4vw;
+  padding-right: 4vw;
+  padding-bottom: 2vh;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#task-title,
+#task-description,
+#task-date {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+
+#submitTask {
+  margin-top: 3vh;
+}
+
+#submitTask:hover {
+  margin-top: 3vh;
+  background-color: royalblue;
+  color: white;
+}
+
+.form-h3 {
+  margin-bottom: 4vh;
+  font-size: 2rem;
+}
+
+.form-label {
+    display: flex;
+  align-self: flex-end;
+}
+
+input {
+  width: 100%;
+  height: 2rem;
+  border-style: none;
+  background-color: white;
+  border-radius: 5px;
+  padding-left: 0.5rem;
+  border: solid 1px royalblue;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+:placeholder-shown {
+  color: grey;
+}
+
+/* Fix label input. Change task input to have same background as tasks */

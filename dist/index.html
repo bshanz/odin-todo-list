@@ -13,31 +13,82 @@
         <h1>To-Do List</h1>
       </div>
       <div class="sidebar">
-        <button class="new-task">+ New Task</button>
+        <!-- Trigger/Open The Modal -->
+        <button class="new-task" id="myBtn">+ New Task</button>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <div class="modal-flex">
+              <span class="close"></span>
+              <h3 class="form-h3">Add a new task</h3>
+              <form action="#" method="post" id="task-form">
+                <div id="title">
+                  <label class="form-label" for="title">Task name:</label>
+                  <input
+                    type="text"
+                    placeholder="Investor pitch"
+                    id="title-dom"
+                    name="title"
+                    minlength="1"
+                    maxlength="50"
+                    required
+                  />
+                </div>
+                <div id="description">
+                  <label class="form-label" for="description"
+                    >Task description (optional):</label
+                  >
+                  <input
+                    type="text"
+                    placeholder="Start by creating the pitch deck and then..."
+                    id="description-dom"
+                    name="description"
+                    minlength="1"
+                    maxlength="50"
+                  />
+                </div>
+                <div id="date">
+                  <label class="form-label" for="date">Due Date:</label>
+                  <input type="date" id="date-dom" name="date" required />
+                </div>
+              </form>
+              <button
+                form="task-form"
+                id="submitTask"
+                type="submit"
+                class="submit"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
         <h2>Tasks</h2>
         <button class="button-side">All tasks</button>
         <button class="button-side">Today</button>
         <button class="button-side">This week</button>
         <h2>Projects</h2>
         <button class="button-side">+ New Project</button>
+        <form action="post">
+            <input type="text">
+        </form>
       </div>
-      <div class="grid">
+      <div id="grid" class="grid">
         <div class="todo-card">
           <div class="todo-content">
             <div class="upper-card">
               <h3>Title:</h3>
               <p>Description:</p>
-              <div class="due-container">
+              <div class="date-container">
                 <label for="due-date">Due Date:</label>
-                <input type="date" id="birthday" name="birthday" />
+                <input type="date" id="date" name="date" />
               </div>
             </div>
             <div class="lower-card">
-              <button class="button">
-                Done
-                <span></span>
-                <button class="remove">Remove</button>
-              </button>
+              <button class="button">Done</button>
+              <button class="remove">Remove</button>
             </div>
           </div>
         </div>
