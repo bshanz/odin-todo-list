@@ -42,6 +42,23 @@ h1 {
   border-bottom-right-radius: 5px;
 }
 
+.button-side {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  color: white;
+  font-size: 1.3rem;
+}
+
+.button-side:hover {
+  background-color: rgba(0,0,0,.5);
+    color: #fff;
+    border-radius: 5px;
+}
+
 .grid {
   grid-row: 2 / 3;
   grid-column: 2 / 3;
@@ -140,8 +157,6 @@ h1 {
   color: white;
   background-color: royalblue;
 }
-
-
 
 /* From uiverse.io */
 .new-task,
@@ -266,7 +281,7 @@ form {
 }
 
 .form-label {
-    display: flex;
+  display: flex;
   align-self: flex-end;
 }
 

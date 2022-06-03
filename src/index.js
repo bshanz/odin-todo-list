@@ -1,14 +1,13 @@
 import _ from "lodash";
 import "./style.css";
-import { addDays, isThisWeek, isThisMonth, format, parseISO } from 'date-fns'
-
-const theDate = () => {
-    const date = new Date();
-    const newDate = format(new Date(2017, 10, 6), 'MMM');
-    const isIT = isThisWeek(newDate);
-    console.log(newDate);
-    console.log(isIT);
-}
+import {
+  addDays,
+  isThisWeek,
+  isThisMonth,
+  format,
+  parseISO,
+  isToday,
+} from "date-fns";
 
 // cache the dom
 
@@ -19,6 +18,8 @@ const submitTask = document.getElementById("submitTask");
 const title = document.getElementById("title-dom");
 const description = document.getElementById("description-dom");
 const date = document.getElementById("date-dom");
+const exampleButtonOne = document.getElementById("example-button-1");
+const exampleButtonTwo = document.getElementById("example-button-2");
 
 // create task array
 
@@ -84,11 +85,11 @@ form.addEventListener("submit", (e) => {
   grid.appendChild(toDoCard);
   toDoCard.classList.add("todo-card");
 
-// create content within card
+  // create content within card
   toDoCard.appendChild(toDoContent);
   toDoContent.classList.add("todo-content");
 
-// create the upper portion of the card
+  // create the upper portion of the card
   toDoContent.appendChild(upperCard);
   upperCard.classList.add("upper-card");
 
@@ -112,25 +113,60 @@ form.addEventListener("submit", (e) => {
   // add values to title, description, date, and buttons
   theTitle.innerText = task1.title;
   theDescription.innerText = `${task1.description}`;
-  dateLabel.innerText = "Due date:"
+  dateLabel.innerText = "Due date:";
   doneButton.innerText = "Done";
   dateInput.type = "date";
   dateInput.value = task1.date;
   removeButton.innerText = "Remove";
 
-  // add event listener to dynamic book card to remove it
+  // add event listener to dynamic book card to complete it
+  doneButton.addEventListener("click", removeTask);
 
+  // add event listener to dynamic book card to remove it
   removeButton.addEventListener("click", removeTask);
 
-  console.log(myTasks);
-  console.log(task1);
+  //console.log(myTasks);
+  //console.log(task1);
+  thisWeekCheck();
+  todayCheck();
 });
+
+//function to check if the task's due date is this week
+const thisWeekCheck = () => {
+  let taskDates = myTasks.forEach((task) => {
+    console.log(task.date);
+    if (isThisWeek(parseISO(task.date)) === true) {
+      console.log(`this ${task.title} would show up`);
+    } else {
+      console.log(`this ${task.title} is egg salad`);
+    }
+  });
+};
+
+//function to check if the task's due date is this today
+const todayCheck = () => {
+  let taskDates = myTasks.forEach((task) => {
+    console.log(task.date);
+    if (isToday(parseISO(task.date)) === true) {
+      console.log(`this ${task.title} would show up`);
+    } else {
+      console.log(`this ${task.title} is egg salad`);
+    }
+  });
+};
 
 // enable user to delete dynamic books
 function removeTask(e) {
   const target = e.target;
-  target.parentNode.remove();
+  target.parentNode.parentNode.parentNode.remove();
 }
+
+//enable user to remove demo tasks from window load
+function demoTaskRemover() {
+  exampleButtonOne.addEventListener("click", removeTask);
+  exampleButtonTwo.addEventListener("click", removeTask);
+}
+demoTaskRemover();
 
 // creating the modal
 
