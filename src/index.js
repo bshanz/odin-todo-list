@@ -10,9 +10,13 @@ import {
 } from "date-fns";
 
 /* Next tasks:
+- Give the 'Done' button the same functionality as the 'remove' button
+- enable ability to remove demo task
 - Put today, this week, and all tasks into their own modules
 - Be able to update the dates dynamically 
-- Add functionality for different projects*/
+- Add functionality for different projects
+
+*/
 
 // cache the dom
 const newTask = document.getElementById("new-task");
@@ -117,6 +121,7 @@ form.addEventListener("submit", (e) => {
   theDescription.innerText = `${task1.description}`;
   dateLabel.innerText = "Due date:";
   doneButton.innerText = "Done";
+  doneButton.value = `${task1.title}`;
   dateInput.type = "date";
   dateInput.value = task1.date;
   removeButton.innerText = "Remove";
@@ -181,6 +186,7 @@ const thisWeekCheck = () => {
       theDescription.innerText = `${task.description}`;
       dateLabel.innerText = "Due date:";
       doneButton.innerText = "Done";
+      doneButton.value = `${task.title}`;
       dateInput.type = "date";
       dateInput.value = task.date;
       removeButton.innerText = "Remove";
@@ -248,6 +254,7 @@ const todayCheck = () => {
       theDescription.innerText = `${task.description}`;
       dateLabel.innerText = "Due date:";
       doneButton.innerText = "Done";
+      doneButton.value = `${task.title}`;
       dateInput.type = "date";
       dateInput.value = task.date;
       removeButton.innerText = "Remove";
@@ -314,6 +321,7 @@ const allTasks = () => {
     theDescription.innerText = `${task.description}`;
     dateLabel.innerText = "Due date:";
     doneButton.innerText = "Done";
+    doneButton.value = `${task.title}`;
     dateInput.type = "date";
     dateInput.value = task.date;
     removeButton.innerText = "Remove";
@@ -327,11 +335,12 @@ const allTasks = () => {
   });
 };
 
-// enable user to delete dynamic books
-/*function removeTask(e) {
+// enable user to delete books on window load
+function removeDemoTask(e) {
   const target = e.target;
   target.parentNode.parentNode.parentNode.remove();
-}*/
+  console.log(`run`);
+}
 
 // enable user to delete dynamic books and remove from array
 const removeTask = (e) => {
@@ -352,8 +361,8 @@ const removeTask = (e) => {
 
 //enable user to remove demo tasks from window load
 function demoTaskRemover() {
-  exampleButtonOne.addEventListener("click", removeTask);
-  exampleButtonTwo.addEventListener("click", removeTask);
+  exampleButtonOne.addEventListener("click", removeDemoTask);
+  exampleButtonTwo.addEventListener("click", removeDemoTask);
 }
 demoTaskRemover();
 
