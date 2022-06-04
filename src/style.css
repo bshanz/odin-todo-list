@@ -54,9 +54,9 @@ h1 {
 }
 
 .button-side:hover {
-  background-color: rgba(0,0,0,.5);
-    color: #fff;
-    border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border-radius: 5px;
 }
 
 .grid {
