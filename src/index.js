@@ -10,12 +10,9 @@ import {
 } from "date-fns";
 
 /* Next tasks:
-- Give the 'Done' button the same functionality as the 'remove' button
-- enable ability to remove demo task
 - Put today, this week, and all tasks into their own modules
 - Be able to update the dates dynamically 
-- Add functionality for different projects
-
+- Add functionality for different projects. Likely a dropdown selection
 */
 
 // cache the dom
