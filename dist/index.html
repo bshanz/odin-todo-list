@@ -12,7 +12,7 @@
       <div class="header">
         <h1>To-Do List</h1>
       </div>
-      <div class="sidebar">
+      <div id="sidebar" class="sidebar">
         <!-- Trigger/Open The Modal -->
         <button class="new-task" id="myBtn">+ New Task</button>
 
@@ -51,11 +51,11 @@
                 </div>
                 <div id="project">
                   <label class="form-label" for="project"
-                    >Add to project? (optional):</label
+                    >Project name (optional):</label
                   >
                   <input
                     type="text"
-                    placeholder="Project name"
+                    placeholder="Seed funding"
                     id="project-dom"
                     name="project"
                     minlength="1"
@@ -84,6 +84,7 @@
         <button id="this-week-btn" class="button-side">This week</button>
         <h2>Projects</h2>
         <button id="new-project" class="button-side">+ New Project</button>
+        <button class="button-side">Example Project</button>
       </div>
       <div id="grid" class="grid">
         <div class="todo-card">

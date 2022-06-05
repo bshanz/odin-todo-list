@@ -10,6 +10,7 @@ import {
 } from "date-fns";
 
 /* Next tasks:
+- Make the projects populate their tasks, similar to 'all tasks'
 - Put today, this week, and all tasks into their own modules
 - Be able to update the dates dynamically 
 - Add functionality for different projects. Likely a dropdown selection
@@ -29,6 +30,7 @@ const exampleButtonTwo = document.getElementById("example-button-2");
 const thisWeekButton = document.getElementById("this-week-btn");
 const todayButton = document.getElementById("today-btn");
 const allButton = document.getElementById("all-btn");
+const sidebar = document.getElementById("sidebar");
 
 // create task array
 const myTasks = [];
@@ -86,6 +88,7 @@ form.addEventListener("submit", (e) => {
   const lowerCard = document.createElement("div");
   const doneButton = document.createElement("button");
   const removeButton = document.createElement("button");
+  const newProject = document.createElement("button");
 
   // append to DOM and add classes
   // create todo card
@@ -118,6 +121,10 @@ form.addEventListener("submit", (e) => {
   lowerCard.appendChild(removeButton);
   removeButton.classList.add("remove");
 
+  // create the project tab
+  sidebar.appendChild(newProject);
+  newProject.classList.add("button-side");
+
   // add values to title, description, date, and buttons
   theTitle.innerText = task1.title;
   theDescription.innerText = `${task1.description}`;
@@ -129,6 +136,8 @@ form.addEventListener("submit", (e) => {
   dateInput.value = task1.date;
   removeButton.innerText = "Remove";
   removeButton.value = `${task1.title}`;
+  newProject.innerText = task1.project;
+  newProject.value = task1.project;
 
   // add event listener to dynamic book card to complete it
   doneButton.addEventListener("click", removeTask);
@@ -351,7 +360,6 @@ const allTasks = () => {
 function removeDemoTask(e) {
   const target = e.target;
   target.parentNode.parentNode.parentNode.remove();
-  console.log(`run`);
 }
 
 // enable user to delete dynamic books and remove from array
