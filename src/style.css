@@ -55,8 +55,18 @@ h1 {
 
 .button-side:hover {
   background-color: rgba(0, 0, 0, 0.5);
-  color: #fff;
+ 
   border-radius: 5px;
+}
+
+.button-side:focus {
+  background-color: rgba(0, 0, 0, 0.5);
+
+  border-radius: 5px;
+}
+
+#new-project:focus{
+  background-color: transparent;
 }
 
 .grid {
@@ -222,21 +232,6 @@ h2 {
   padding: 20px;
   border: 1px solid #888;
   width: 60%; /* Could be more or less, depending on screen size */
-}
-
-/* The Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
 }
 
 .modal-flex {

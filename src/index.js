@@ -22,6 +22,7 @@ const form = document.querySelector("form");
 const submitTask = document.getElementById("submitTask");
 const title = document.getElementById("title-dom");
 const description = document.getElementById("description-dom");
+const project = document.getElementById("project-dom");
 const date = document.getElementById("date-dom");
 const exampleButtonOne = document.getElementById("example-button-1");
 const exampleButtonTwo = document.getElementById("example-button-2");
@@ -34,9 +35,10 @@ const myTasks = [];
 
 // create task class
 class Task {
-  constructor(title, description, date) {
+  constructor(title, description, project, date) {
     this.title = title;
     this.description = description;
+    this.project = project;
     this.date = date;
     //this.project = project;
     this.info = function () {
@@ -54,6 +56,7 @@ form.addEventListener("submit", (e) => {
   const task1 = new Task(
     title.value,
     description.value,
+    project.value,
     date.value
     //project.value
   );
@@ -76,6 +79,7 @@ form.addEventListener("submit", (e) => {
   const upperCard = document.createElement("div");
   const theTitle = document.createElement("h3");
   const theDescription = document.createElement("p");
+  const theProject = document.createElement("p");
   const dateContainer = document.createElement("div");
   const dateLabel = document.createElement("label");
   const dateInput = document.createElement("input");
@@ -98,6 +102,7 @@ form.addEventListener("submit", (e) => {
 
   upperCard.appendChild(theTitle);
   upperCard.appendChild(theDescription);
+  upperCard.appendChild(theProject);
   upperCard.appendChild(dateContainer);
   dateContainer.classList.add("date-container");
   dateContainer.appendChild(dateLabel);
@@ -116,6 +121,7 @@ form.addEventListener("submit", (e) => {
   // add values to title, description, date, and buttons
   theTitle.innerText = task1.title;
   theDescription.innerText = `${task1.description}`;
+  theProject.innerText = task1.project;
   dateLabel.innerText = "Due date:";
   doneButton.innerText = "Done";
   doneButton.value = `${task1.title}`;
@@ -141,6 +147,7 @@ const thisWeekCheck = () => {
       const upperCard = document.createElement("div");
       const theTitle = document.createElement("h3");
       const theDescription = document.createElement("p");
+      const theProject = document.createElement("p");
       const dateContainer = document.createElement("div");
       const dateLabel = document.createElement("label");
       const dateInput = document.createElement("input");
@@ -163,6 +170,7 @@ const thisWeekCheck = () => {
 
       upperCard.appendChild(theTitle);
       upperCard.appendChild(theDescription);
+      upperCard.appendChild(theProject);
       upperCard.appendChild(dateContainer);
       dateContainer.classList.add("date-container");
       dateContainer.appendChild(dateLabel);
@@ -181,6 +189,7 @@ const thisWeekCheck = () => {
       // add values to title, description, date, and buttons
       theTitle.innerText = task.title;
       theDescription.innerText = `${task.description}`;
+      theProject.innerText = task.project;
       dateLabel.innerText = "Due date:";
       doneButton.innerText = "Done";
       doneButton.value = `${task.title}`;
@@ -209,6 +218,7 @@ const todayCheck = () => {
       const upperCard = document.createElement("div");
       const theTitle = document.createElement("h3");
       const theDescription = document.createElement("p");
+      const theProject = document.createElement("p");
       const dateContainer = document.createElement("div");
       const dateLabel = document.createElement("label");
       const dateInput = document.createElement("input");
@@ -231,6 +241,7 @@ const todayCheck = () => {
 
       upperCard.appendChild(theTitle);
       upperCard.appendChild(theDescription);
+      upperCard.appendChild(theProject);
       upperCard.appendChild(dateContainer);
       dateContainer.classList.add("date-container");
       dateContainer.appendChild(dateLabel);
@@ -249,6 +260,7 @@ const todayCheck = () => {
       // add values to title, description, date, and buttons
       theTitle.innerText = task.title;
       theDescription.innerText = `${task.description}`;
+      theDescription.innerText = task.project;
       dateLabel.innerText = "Due date:";
       doneButton.innerText = "Done";
       doneButton.value = `${task.title}`;
@@ -276,6 +288,7 @@ const allTasks = () => {
     const upperCard = document.createElement("div");
     const theTitle = document.createElement("h3");
     const theDescription = document.createElement("p");
+    const theProject = document.createElement("p");
     const dateContainer = document.createElement("div");
     const dateLabel = document.createElement("label");
     const dateInput = document.createElement("input");
@@ -298,6 +311,7 @@ const allTasks = () => {
 
     upperCard.appendChild(theTitle);
     upperCard.appendChild(theDescription);
+    upperCard.appendChild(theProject);
     upperCard.appendChild(dateContainer);
     dateContainer.classList.add("date-container");
     dateContainer.appendChild(dateLabel);
@@ -316,6 +330,7 @@ const allTasks = () => {
     // add values to title, description, date, and buttons
     theTitle.innerText = task.title;
     theDescription.innerText = `${task.description}`;
+    theProject.innerText = task.project;
     dateLabel.innerText = "Due date:";
     doneButton.innerText = "Done";
     doneButton.value = `${task.title}`;
@@ -389,6 +404,7 @@ window.onclick = function (event) {
     modal.style.display = "none";
   }
 };
+// done with modal
 
 // enable clicking the 'This Week' button
 thisWeekButton.addEventListener("click", (e) => {
