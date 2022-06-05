@@ -49,6 +49,19 @@
                     maxlength="50"
                   />
                 </div>
+                <div id="project">
+                  <label class="form-label" for="project"
+                    >Add to project? (optional):</label
+                  >
+                  <input
+                    type="text"
+                    placeholder="Project name"
+                    id="project-dom"
+                    name="project"
+                    minlength="1"
+                    maxlength="50"
+                  />
+                </div>
                 <div id="date">
                   <label class="form-label" for="date">Due Date:</label>
                   <input type="date" id="date-dom" name="date" required />
@@ -70,10 +83,7 @@
         <button id="today-btn" class="button-side">Today</button>
         <button id="this-week-btn" class="button-side">This week</button>
         <h2>Projects</h2>
-        <button id="newProject" class="button-side">+ New Project</button>
-        <form action="post">
-          <input type="text" />
-        </form>
+        <button id="new-project" class="button-side">+ New Project</button>
       </div>
       <div id="grid" class="grid">
         <div class="todo-card">
@@ -81,6 +91,7 @@
             <div class="upper-card">
               <h3>Example task name</h3>
               <p>Example task description</p>
+              <p>Example project name</p>
               <div class="date-container">
                 <label for="due-date">Due Date:</label>
                 <input type="date" id="date" name="date" />
