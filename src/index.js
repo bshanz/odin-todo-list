@@ -10,11 +10,19 @@ import {
 } from "date-fns";
 
 /* Next tasks:
-- Be able to update the dates dynamically 
+- fix that remove button populates every time the remove project button is clicked. This was edited in 'viewproject'. remove the prject is also messed up
 - add remove button for projects
+- Be able to update the dates dynamically 
 - Put today, this week, and all tasks into their own modules
 - use local storage
 */
+
+// this fires when the calendar date is changed. I'll have to loop through the tasks -- if it's a match, then update the date value for that option. Maybe do the match based on ID or title or description?
+/*const calendar = document.getElementById('date-example');
+
+calendar.addEventListener('change', (event) => {
+  alert("woah");
+});*/
 
 // cache the dom
 const newTask = document.getElementById("new-task");
@@ -31,6 +39,10 @@ const thisWeekButton = document.getElementById("this-week-btn");
 const todayButton = document.getElementById("today-btn");
 const allButton = document.getElementById("all-btn");
 const sidebar = document.getElementById("sidebar");
+const gridContainer = document.getElementById("grid-container");
+const removeProjectContainer = document.getElementById(
+  "remove-project-container"
+);
 
 // create task array
 const myTasks = [];
@@ -159,7 +171,7 @@ form.addEventListener("submit", (e) => {
     newProject.addEventListener("click", viewProject);
     console.log("got it");
   } else {
-  };
+  }
 });
 
 //function to check if the task's due date is this week
@@ -287,7 +299,7 @@ const todayCheck = () => {
       // add values to title, description, date, and buttons
       theTitle.innerText = task.title;
       theDescription.innerText = `${task.description}`;
-      theDescription.innerText = task.project;
+      theProject.innerText = task.project;
       dateLabel.innerText = "Due date:";
       doneButton.innerText = "Done";
       doneButton.value = `${task.title}`;
@@ -389,6 +401,7 @@ const removeTask = (e) => {
       for (let i = myTasks.length - 1; i >= 0; --i) {
         if (myTasks[i].title === e.target.value) {
           myTasks.splice(i, 1);
+          console.log("remove task removed it from array");
         }
         target.parentNode.parentNode.parentNode.remove();
       }
@@ -518,7 +531,32 @@ const viewProject = (e) => {
 
       // add event listener to dynamic book card to remove it
       removeButton.addEventListener("click", removeTask);
+
+      
     } else {
     }
+    // this code is messed up. It adds a new button every time the view is clicked
+    // add a remove project button to this view
+      // create the button element
+      const removeProject = document.createElement("button");
+
+      // append the button below the grid
+      removeProjectContainer.appendChild(removeProject);
+      removeProject.classList.add("remove-project-button");
+
+      // set it's inner text
+      removeProject.innerText = `Remove project "${task.project}"`;
+      removeProject.value = task.project;
+
+      removeProject.addEventListener("click", removeTheProject);
+
+      console.log(`this is the project list ${projectList}`);
   });
+};
+
+const removeTheProject = (e) => {
+  grid.innerHTML = "";
+  gridContainer.innerHTML;
+  removeTask(e);
+  console.log(myTasks);
 };
