@@ -10,10 +10,10 @@ import {
 } from "date-fns";
 
 /* Next tasks:
-- Make the projects populate their tasks, similar to 'all tasks'
-- Put today, this week, and all tasks into their own modules
 - Be able to update the dates dynamically 
-- Add functionality for different projects. Likely a dropdown selection
+- add remove button for projects
+- Put today, this week, and all tasks into their own modules
+- use local storage
 */
 
 // cache the dom
@@ -34,6 +34,7 @@ const sidebar = document.getElementById("sidebar");
 
 // create task array
 const myTasks = [];
+const projectList = [];
 
 // create task class
 class Task {
@@ -88,7 +89,6 @@ form.addEventListener("submit", (e) => {
   const lowerCard = document.createElement("div");
   const doneButton = document.createElement("button");
   const removeButton = document.createElement("button");
-  const newProject = document.createElement("button");
 
   // append to DOM and add classes
   // create todo card
@@ -121,10 +121,6 @@ form.addEventListener("submit", (e) => {
   lowerCard.appendChild(removeButton);
   removeButton.classList.add("remove");
 
-  // create the project tab
-  sidebar.appendChild(newProject);
-  newProject.classList.add("button-side");
-
   // add values to title, description, date, and buttons
   theTitle.innerText = task1.title;
   theDescription.innerText = `${task1.description}`;
@@ -136,18 +132,39 @@ form.addEventListener("submit", (e) => {
   dateInput.value = task1.date;
   removeButton.innerText = "Remove";
   removeButton.value = `${task1.title}`;
-  newProject.innerText = task1.project;
-  newProject.value = task1.project;
 
   // add event listener to dynamic book card to complete it
   doneButton.addEventListener("click", removeTask);
 
   // add event listener to dynamic book card to remove it
   removeButton.addEventListener("click", removeTask);
+
+  // create the new project button if it does not already exist
+  if (projectList.includes(task1.project) === false) {
+    // push the new project to list
+    projectList.push(task1.project);
+
+    // create the button element
+    const newProject = document.createElement("button");
+
+    // append the project tab
+    sidebar.appendChild(newProject);
+    newProject.classList.add("button-side");
+
+    // set it's inner text
+    newProject.innerText = task1.project;
+    newProject.value = task1.project;
+
+    // add click event listener to the project in side bar
+    newProject.addEventListener("click", viewProject);
+    console.log("got it");
+  } else {
+  };
 });
 
 //function to check if the task's due date is this week
 const thisWeekCheck = () => {
+  // check if the task due date is this week
   let taskDates = myTasks.forEach((task) => {
     if (isThisWeek(parseISO(task.date)) === true) {
       // create elements
@@ -219,6 +236,7 @@ const thisWeekCheck = () => {
 
 //function to check if the task's due date is this today
 const todayCheck = () => {
+  // check if the task due date is today
   let taskDates = myTasks.forEach((task) => {
     if (isToday(parseISO(task.date)) === true) {
       // create elements
@@ -431,3 +449,76 @@ allButton.addEventListener("click", (e) => {
   grid.innerHTML = "";
   allTasks();
 });
+
+// enable user to click project buttons. try to move the grid aspect into the event listenr
+const viewProject = (e) => {
+  grid.innerHTML = "";
+  // check if the task due date is today
+  let taskProject = myTasks.forEach((task) => {
+    if (e.target.value === task.project) {
+      // create elements
+      const toDoCard = document.createElement("div");
+      const toDoContent = document.createElement("div");
+      const upperCard = document.createElement("div");
+      const theTitle = document.createElement("h3");
+      const theDescription = document.createElement("p");
+      const theProject = document.createElement("p");
+      const dateContainer = document.createElement("div");
+      const dateLabel = document.createElement("label");
+      const dateInput = document.createElement("input");
+      const lowerCard = document.createElement("div");
+      const doneButton = document.createElement("button");
+      const removeButton = document.createElement("button");
+
+      // append to DOM and add classes
+      // create todo card
+      grid.appendChild(toDoCard);
+      toDoCard.classList.add("todo-card");
+
+      // create content within card
+      toDoCard.appendChild(toDoContent);
+      toDoContent.classList.add("todo-content");
+
+      // create the upper portion of the card
+      toDoContent.appendChild(upperCard);
+      upperCard.classList.add("upper-card");
+
+      upperCard.appendChild(theTitle);
+      upperCard.appendChild(theDescription);
+      upperCard.appendChild(theProject);
+      upperCard.appendChild(dateContainer);
+      dateContainer.classList.add("date-container");
+      dateContainer.appendChild(dateLabel);
+      dateContainer.appendChild(dateInput);
+
+      // create lower portion of the card
+      toDoContent.appendChild(lowerCard);
+      lowerCard.classList.add("lower-card");
+
+      lowerCard.appendChild(doneButton);
+      doneButton.classList.add("button");
+
+      lowerCard.appendChild(removeButton);
+      removeButton.classList.add("remove");
+
+      // add values to title, description, date, and buttons
+      theTitle.innerText = task.title;
+      theDescription.innerText = `${task.description}`;
+      theProject.innerText = task.project;
+      dateLabel.innerText = "Due date:";
+      doneButton.innerText = "Done";
+      doneButton.value = `${task.title}`;
+      dateInput.type = "date";
+      dateInput.value = task.date;
+      removeButton.innerText = "Remove";
+      removeButton.value = `${task.title}`;
+
+      // add event listener to dynamic book card to complete it
+      doneButton.addEventListener("click", removeTask);
+
+      // add event listener to dynamic book card to remove it
+      removeButton.addEventListener("click", removeTask);
+    } else {
+    }
+  });
+};
