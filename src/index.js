@@ -47,6 +47,7 @@ const removeProjectContainer = document.getElementById(
 // create task array
 const myTasks = [];
 const projectList = [];
+const removeProjectList = [];
 
 // create task class
 class Task {
@@ -448,18 +449,21 @@ window.onclick = function (event) {
 // enable clicking the 'This Week' button
 thisWeekButton.addEventListener("click", (e) => {
   grid.innerHTML = "";
+  removeProjectContainer.innerHTML = "";
   thisWeekCheck();
 });
 
 //enable user to click 'today' button
 todayButton.addEventListener("click", (e) => {
   grid.innerHTML = "";
+  removeProjectContainer.innerHTML = "";
   todayCheck();
 });
 
 //enable user to click 'all tasks' button
 allButton.addEventListener("click", (e) => {
   grid.innerHTML = "";
+  removeProjectContainer.innerHTML = "";
   allTasks();
 });
 
@@ -532,12 +536,11 @@ const viewProject = (e) => {
       // add event listener to dynamic book card to remove it
       removeButton.addEventListener("click", removeTask);
 
-      
-    } else {
-    }
-    // this code is messed up. It adds a new button every time the view is clicked
-    // add a remove project button to this view
-      // create the button element
+      // add a remove project button to this view
+      //clear the container incase it has something in it already
+      removeProjectContainer.innerHTML = "";
+
+      // create the remove project button
       const removeProject = document.createElement("button");
 
       // append the button below the grid
@@ -548,15 +551,34 @@ const viewProject = (e) => {
       removeProject.innerText = `Remove project "${task.project}"`;
       removeProject.value = task.project;
 
-      removeProject.addEventListener("click", removeTheProject);
-
-      console.log(`this is the project list ${projectList}`);
+      removeProject.addEventListener("click", () => {
+        //removeTask(e);
+        removeTheProject(e);
+        console.log(`this is ${myTasks}`);
+      });
+    } else {
+    }
+    // this code is messed up. It adds a new button every time the view is clicked. need to write an if state to check if the button with that ID already exists
   });
 };
 
+// this needs to be fixed. It needs to 1) remove that task from the array 2) remove the project side button from menu and 3) remove itself from project list. Will likely need to re-write the removetask function but use project name instead of title
 const removeTheProject = (e) => {
   grid.innerHTML = "";
-  gridContainer.innerHTML;
-  removeTask(e);
-  console.log(myTasks);
+  removeProjectContainer.innerHTML = "";
+  const target = e.target;
+
+  myTasks.forEach((task) => {
+    if (e.target.value === `${task.project}`) {
+      for (let i = myTasks.length - 1; i >= 0; --i) {
+        if (myTasks[i].project === e.target.value) {
+          myTasks.splice(i, 1);
+          console.log("remove task removed it from array");
+        }
+        target.parentNode.parentNode.parentNode.remove();
+      }
+    } else {
+    }
+    console.log(myTasks);
+  });
 };
