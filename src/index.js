@@ -10,9 +10,7 @@ import {
 } from "date-fns";
 
 /* Next tasks:
-- fix that remove button populates every time the remove project button is clicked. This was edited in 'viewproject'. remove the prject is also messed up
-- add remove button for projects
-- Be able to update the dates dynamically 
+- if the project doesn't contain any tasks, remove itself
 - Put today, this week, and all tasks into their own modules
 - use local storage
 */
@@ -143,6 +141,7 @@ form.addEventListener("submit", (e) => {
   doneButton.value = `${task1.title}`;
   dateInput.type = "date";
   dateInput.value = task1.date;
+  dateInput.id = task1.title;
   removeButton.innerText = "Remove";
   removeButton.value = `${task1.title}`;
 
@@ -151,6 +150,18 @@ form.addEventListener("submit", (e) => {
 
   // add event listener to dynamic book card to remove it
   removeButton.addEventListener("click", removeTask);
+
+  // add event listener for date input
+  dateInput.addEventListener("change", (e) => {
+    let updateTaskDate = myTasks.forEach((task) => {
+      if (e.target.id === task1.title) {
+        task1.date = e.target.value;
+       
+      } else {
+       
+      }
+    });
+  });
 
   // create the new project button if it does not already exist
   if (projectList.includes(task1.project) === false) {
@@ -171,7 +182,6 @@ form.addEventListener("submit", (e) => {
 
     // add click event listener to the project in side bar
     newProject.addEventListener("click", viewProject);
-   
   } else {
   }
 });
@@ -235,6 +245,7 @@ const thisWeekCheck = () => {
       doneButton.value = `${task.title}`;
       dateInput.type = "date";
       dateInput.value = task.date;
+      dateInput.id = task.title;
       removeButton.innerText = "Remove";
       removeButton.value = `${task.title}`;
 
@@ -243,6 +254,19 @@ const thisWeekCheck = () => {
 
       // add event listener to dynamic book card to remove it
       removeButton.addEventListener("click", removeTask);
+
+      // add event listener for date input
+     
+      dateInput.addEventListener("change", (e) => {
+        let updateTaskDate = myTasks.forEach((task) => {
+          if (e.target.id === task.title) {
+            task.date = e.target.value;
+           
+          } else {
+          
+          }
+        });
+      });
     } else {
     }
   });
@@ -307,6 +331,7 @@ const todayCheck = () => {
       doneButton.value = `${task.title}`;
       dateInput.type = "date";
       dateInput.value = task.date;
+      dateInput.id = task.title;
       removeButton.innerText = "Remove";
       removeButton.value = `${task.title}`;
 
@@ -315,6 +340,19 @@ const todayCheck = () => {
 
       // add event listener to dynamic book card to remove it
       removeButton.addEventListener("click", removeTask);
+
+      // add event listener for date input
+     
+      dateInput.addEventListener("change", (e) => {
+        let updateTaskDate = myTasks.forEach((task) => {
+          if (e.target.id === task.title) {
+            task.date = e.target.value;
+            
+          } else {
+           
+          }
+        });
+      });
     } else {
     }
   });
@@ -377,6 +415,7 @@ const allTasks = () => {
     doneButton.value = `${task.title}`;
     dateInput.type = "date";
     dateInput.value = task.date;
+    dateInput.id = task.title;
     removeButton.innerText = "Remove";
     removeButton.value = `${task.title}`;
 
@@ -385,6 +424,19 @@ const allTasks = () => {
 
     // add event listener to dynamic book card to remove it
     removeButton.addEventListener("click", removeTask);
+
+    // add event listener for date input
+  
+    dateInput.addEventListener("change", (e) => {
+      let updateTaskDate = myTasks.forEach((task) => {
+        if (e.target.id === task.title) {
+          task.date = e.target.value;
+         
+        } else {
+      
+        }
+      });
+    });
   });
 };
 
@@ -527,6 +579,7 @@ const viewProject = (e) => {
       doneButton.value = `${task.title}`;
       dateInput.type = "date";
       dateInput.value = task.date;
+      dateInput.id = task.title;
       removeButton.innerText = "Remove";
       removeButton.value = `${task.title}`;
 
@@ -535,6 +588,18 @@ const viewProject = (e) => {
 
       // add event listener to dynamic book card to remove it
       removeButton.addEventListener("click", removeTask);
+
+      // add event listener for date input
+      dateInput.addEventListener("change", (e) => {
+        let updateTaskDate = myTasks.forEach((task) => {
+          if (e.target.id === task.title) {
+            task.date = e.target.value;
+          
+          } else {
+           
+          }
+        });
+      });
 
       // add a remove project button to this view
       //clear the container incase it has something in it already
@@ -566,7 +631,7 @@ const removeTheProject = (e) => {
   grid.innerHTML = "";
   removeProjectContainer.innerHTML = "";
   const target = e.target;
-  let removeThis = '';
+  let removeThis = "";
 
   myTasks.forEach((task) => {
     if (e.target.value === `${task.project}`) {
