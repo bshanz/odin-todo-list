@@ -167,10 +167,11 @@ form.addEventListener("submit", (e) => {
     // set it's inner text
     newProject.innerText = task1.project;
     newProject.value = task1.project;
+    newProject.id = task1.project;
 
     // add click event listener to the project in side bar
     newProject.addEventListener("click", viewProject);
-    console.log("got it");
+   
   } else {
   }
 });
@@ -402,7 +403,6 @@ const removeTask = (e) => {
       for (let i = myTasks.length - 1; i >= 0; --i) {
         if (myTasks[i].title === e.target.value) {
           myTasks.splice(i, 1);
-          console.log("remove task removed it from array");
         }
         target.parentNode.parentNode.parentNode.remove();
       }
@@ -554,7 +554,6 @@ const viewProject = (e) => {
       removeProject.addEventListener("click", () => {
         //removeTask(e);
         removeTheProject(e);
-        console.log(`this is ${myTasks}`);
       });
     } else {
     }
@@ -562,23 +561,23 @@ const viewProject = (e) => {
   });
 };
 
-// this needs to be fixed. It needs to 1) remove that task from the array 2) remove the project side button from menu and 3) remove itself from project list. Will likely need to re-write the removetask function but use project name instead of title
+// remove the project and all associated tasks
 const removeTheProject = (e) => {
   grid.innerHTML = "";
   removeProjectContainer.innerHTML = "";
   const target = e.target;
+  let removeThis = '';
 
   myTasks.forEach((task) => {
     if (e.target.value === `${task.project}`) {
       for (let i = myTasks.length - 1; i >= 0; --i) {
         if (myTasks[i].project === e.target.value) {
+          removeThis = myTasks[i].project;
           myTasks.splice(i, 1);
-          console.log("remove task removed it from array");
+          document.getElementById(removeThis).remove();
         }
-        target.parentNode.parentNode.parentNode.remove();
       }
     } else {
     }
-    console.log(myTasks);
   });
 };
