@@ -156,9 +156,7 @@ form.addEventListener("submit", (e) => {
     let updateTaskDate = myTasks.forEach((task) => {
       if (e.target.id === task1.title) {
         task1.date = e.target.value;
-       
       } else {
-       
       }
     });
   });
@@ -256,14 +254,12 @@ const thisWeekCheck = () => {
       removeButton.addEventListener("click", removeTask);
 
       // add event listener for date input
-     
+
       dateInput.addEventListener("change", (e) => {
         let updateTaskDate = myTasks.forEach((task) => {
           if (e.target.id === task.title) {
             task.date = e.target.value;
-           
           } else {
-          
           }
         });
       });
@@ -342,14 +338,12 @@ const todayCheck = () => {
       removeButton.addEventListener("click", removeTask);
 
       // add event listener for date input
-     
+
       dateInput.addEventListener("change", (e) => {
         let updateTaskDate = myTasks.forEach((task) => {
           if (e.target.id === task.title) {
             task.date = e.target.value;
-            
           } else {
-           
           }
         });
       });
@@ -426,14 +420,12 @@ const allTasks = () => {
     removeButton.addEventListener("click", removeTask);
 
     // add event listener for date input
-  
+
     dateInput.addEventListener("change", (e) => {
       let updateTaskDate = myTasks.forEach((task) => {
         if (e.target.id === task.title) {
           task.date = e.target.value;
-         
         } else {
-      
         }
       });
     });
@@ -522,7 +514,7 @@ allButton.addEventListener("click", (e) => {
 // enable user to click project buttons. try to move the grid aspect into the event listenr
 const viewProject = (e) => {
   grid.innerHTML = "";
-  // check if the task due date is today
+  // loop through the tasks
   let taskProject = myTasks.forEach((task) => {
     if (e.target.value === task.project) {
       // create elements
@@ -594,15 +586,14 @@ const viewProject = (e) => {
         let updateTaskDate = myTasks.forEach((task) => {
           if (e.target.id === task.title) {
             task.date = e.target.value;
-          
           } else {
-           
           }
         });
       });
 
       // add a remove project button to this view
       //clear the container incase it has something in it already
+      // the fix is likely to create a separate loop within this function. No if statement, just run the code below. Or loop through the project array instead. Sent the button name and remove functionality based on the button name. It would be a separate if statement. Likely on the click of the project name on sidebar
       removeProjectContainer.innerHTML = "";
 
       // create the remove project button
@@ -622,27 +613,63 @@ const viewProject = (e) => {
       });
     } else {
     }
-    // this code is messed up. It adds a new button every time the view is clicked. need to write an if state to check if the button with that ID already exists
+  });
+  // when the project is removed by the 'done' or 'remove' button under the 'all tasks'
+  // 'today', or 'this week' view, create a button to still remove the project
+  let taskProjectRemoval = projectList.forEach((project) => {
+    if (e.target.value === project) {
+      console.log("found it");
+      //clear the existing remove project button
+      removeProjectContainer.innerHTML = "";
+
+      // create the remove project button
+      const removeProject = document.createElement("button");
+
+      // append the button below the grid
+      removeProjectContainer.appendChild(removeProject);
+      removeProject.classList.add("remove-project-button");
+
+      // set it's inner text
+      removeProject.innerText = `Remove project "${project}"`;
+      removeProject.value = project;
+
+      removeProject.addEventListener("click", () => {
+        //removeTask(e);
+        removeTheProject(e);
+      });
+    } else {
+    }
   });
 };
 
 // remove the project and all associated tasks
 const removeTheProject = (e) => {
-  grid.innerHTML = "";
-  removeProjectContainer.innerHTML = "";
   const target = e.target;
+  // clear the project task grid
+  grid.innerHTML = "";
+  // delete this button
+  removeProjectContainer.innerHTML = "";
   let removeThis = "";
 
+  // remove the task from the myTasks object
   myTasks.forEach((task) => {
     if (e.target.value === `${task.project}`) {
       for (let i = myTasks.length - 1; i >= 0; --i) {
         if (myTasks[i].project === e.target.value) {
           removeThis = myTasks[i].project;
           myTasks.splice(i, 1);
-          document.getElementById(removeThis).remove();
         }
       }
     } else {
     }
   });
+  // remove from project list array
+  projectList.forEach((project) => {
+    console.log(projectList);
+    if (e.target.value === project) {
+      projectList.splice(project, 1);
+      console.log(projectList);
+    }
+  });
+  document.getElementById(e.target.value).remove();
 };
