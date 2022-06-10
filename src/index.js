@@ -1,3 +1,4 @@
+// initiate imports
 import _, { find, findIndex, indexOf } from "lodash";
 import "./style.css";
 import {
@@ -8,19 +9,13 @@ import {
   parseISO,
   isToday,
 } from "date-fns";
+import { renderToday } from "./today.js";
 
 /* Next tasks:
 - if the project doesn't contain any tasks, remove itself
 - Put today, this week, and all tasks into their own modules
 - use local storage
 */
-
-// this fires when the calendar date is changed. I'll have to loop through the tasks -- if it's a match, then update the date value for that option. Maybe do the match based on ID or title or description?
-/*const calendar = document.getElementById('date-example');
-
-calendar.addEventListener('change', (event) => {
-  alert("woah");
-});*/
 
 // cache the dom
 const newTask = document.getElementById("new-task");
@@ -45,7 +40,6 @@ const removeProjectContainer = document.getElementById(
 // create task array
 const myTasks = [];
 const projectList = [];
-const removeProjectList = [];
 
 // create task class
 class Task {
@@ -266,10 +260,12 @@ const thisWeekCheck = () => {
     } else {
     }
   });
+  console.log(myTasks);
+  console.log(projectList);
 };
 
 //function to check if the task's due date is this today
-const todayCheck = () => {
+/*const todayCheck = () => {
   // check if the task due date is today
   let taskDates = myTasks.forEach((task) => {
     if (isToday(parseISO(task.date)) === true) {
@@ -350,7 +346,7 @@ const todayCheck = () => {
     } else {
     }
   });
-};
+};*/
 
 //function to render all tasks
 const allTasks = () => {
@@ -501,7 +497,8 @@ thisWeekButton.addEventListener("click", (e) => {
 todayButton.addEventListener("click", (e) => {
   grid.innerHTML = "";
   removeProjectContainer.innerHTML = "";
-  todayCheck();
+  //todayCheck();
+  renderToday();
 });
 
 //enable user to click 'all tasks' button
@@ -618,7 +615,6 @@ const viewProject = (e) => {
   // 'today', or 'this week' view, create a button to still remove the project
   let taskProjectRemoval = projectList.forEach((project) => {
     if (e.target.value === project) {
-      console.log("found it");
       //clear the existing remove project button
       removeProjectContainer.innerHTML = "";
 
@@ -665,11 +661,12 @@ const removeTheProject = (e) => {
   });
   // remove from project list array
   projectList.forEach((project) => {
-    console.log(projectList);
     if (e.target.value === project) {
       projectList.splice(project, 1);
-      console.log(projectList);
     }
   });
   document.getElementById(e.target.value).remove();
 };
+
+// initiate exports
+export { myTasks, projectList, removeTask };
