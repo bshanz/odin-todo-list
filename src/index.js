@@ -10,6 +10,8 @@ import {
   isToday,
 } from "date-fns";
 import { renderToday } from "./today.js";
+import { renderThisWeek } from "./thisWeek.js";
+import { renderAllTasks } from "./allTasks.js";
 
 /* Next tasks:
 - if the project doesn't contain any tasks, remove itself
@@ -179,7 +181,7 @@ form.addEventListener("submit", (e) => {
 });
 
 //function to check if the task's due date is this week
-const thisWeekCheck = () => {
+/*const thisWeekCheck = () => {
   // check if the task due date is this week
   let taskDates = myTasks.forEach((task) => {
     if (isThisWeek(parseISO(task.date)) === true) {
@@ -262,7 +264,7 @@ const thisWeekCheck = () => {
   });
   console.log(myTasks);
   console.log(projectList);
-};
+};*/
 
 //function to check if the task's due date is this today
 /*const todayCheck = () => {
@@ -349,7 +351,7 @@ const thisWeekCheck = () => {
 };*/
 
 //function to render all tasks
-const allTasks = () => {
+/*const allTasks = () => {
   let taskDates = myTasks.forEach((task) => {
     // create elements
     const toDoCard = document.createElement("div");
@@ -426,7 +428,7 @@ const allTasks = () => {
       });
     });
   });
-};
+};*/
 
 // enable user to delete books on window load
 function removeDemoTask(e) {
@@ -490,7 +492,7 @@ window.onclick = function (event) {
 thisWeekButton.addEventListener("click", (e) => {
   grid.innerHTML = "";
   removeProjectContainer.innerHTML = "";
-  thisWeekCheck();
+  renderThisWeek();
 });
 
 //enable user to click 'today' button
@@ -505,7 +507,7 @@ todayButton.addEventListener("click", (e) => {
 allButton.addEventListener("click", (e) => {
   grid.innerHTML = "";
   removeProjectContainer.innerHTML = "";
-  allTasks();
+  renderAllTasks();
 });
 
 // enable user to click project buttons. try to move the grid aspect into the event listenr
