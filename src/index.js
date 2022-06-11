@@ -9,13 +9,12 @@ import {
   parseISO,
   isToday,
 } from "date-fns";
-import { renderToday } from "./today.js";
+/*import { renderToday } from "./today.js";
 import { renderThisWeek } from "./thisWeek.js";
-import { renderAllTasks } from "./allTasks.js";
+import { renderAllTasks } from "./allTasks.js";*/
 
 /* Next tasks:
-- if the project doesn't contain any tasks, remove itself
-- Put today, this week, and all tasks into their own modules
+- create a task, create a second task. Totally remove second task. Remove first task from today view. Button doesn't show
 - use local storage
 */
 
@@ -181,7 +180,7 @@ form.addEventListener("submit", (e) => {
 });
 
 //function to check if the task's due date is this week
-/*const thisWeekCheck = () => {
+const thisWeekCheck = () => {
   // check if the task due date is this week
   let taskDates = myTasks.forEach((task) => {
     if (isThisWeek(parseISO(task.date)) === true) {
@@ -264,10 +263,10 @@ form.addEventListener("submit", (e) => {
   });
   console.log(myTasks);
   console.log(projectList);
-};*/
+};
 
 //function to check if the task's due date is this today
-/*const todayCheck = () => {
+const todayCheck = () => {
   // check if the task due date is today
   let taskDates = myTasks.forEach((task) => {
     if (isToday(parseISO(task.date)) === true) {
@@ -348,10 +347,10 @@ form.addEventListener("submit", (e) => {
     } else {
     }
   });
-};*/
+};
 
 //function to render all tasks
-/*const allTasks = () => {
+const allTasks = () => {
   let taskDates = myTasks.forEach((task) => {
     // create elements
     const toDoCard = document.createElement("div");
@@ -428,7 +427,7 @@ form.addEventListener("submit", (e) => {
       });
     });
   });
-};*/
+};
 
 // enable user to delete books on window load
 function removeDemoTask(e) {
@@ -492,22 +491,24 @@ window.onclick = function (event) {
 thisWeekButton.addEventListener("click", (e) => {
   grid.innerHTML = "";
   removeProjectContainer.innerHTML = "";
-  renderThisWeek();
+  //renderThisWeek();
+  thisWeekCheck();
 });
 
 //enable user to click 'today' button
 todayButton.addEventListener("click", (e) => {
   grid.innerHTML = "";
   removeProjectContainer.innerHTML = "";
-  //todayCheck();
-  renderToday();
+  todayCheck();
+  //renderToday();
 });
 
 //enable user to click 'all tasks' button
 allButton.addEventListener("click", (e) => {
   grid.innerHTML = "";
   removeProjectContainer.innerHTML = "";
-  renderAllTasks();
+  //renderAllTasks();
+  allTasks();
 });
 
 // enable user to click project buttons. try to move the grid aspect into the event listenr
@@ -611,11 +612,12 @@ const viewProject = (e) => {
         removeTheProject(e);
       });
     } else {
+      console.log(`going through first else`);
     }
   });
   // when the project is removed by the 'done' or 'remove' button under the 'all tasks'
   // 'today', or 'this week' view, create a button to still remove the project
-  let taskProjectRemoval = projectList.forEach((project) => {
+  projectList.forEach((project) => {
     if (e.target.value === project) {
       //clear the existing remove project button
       removeProjectContainer.innerHTML = "";
@@ -636,8 +638,10 @@ const viewProject = (e) => {
         removeTheProject(e);
       });
     } else {
+      console.log("going through second else");
     }
   });
+  console.log(projectList);
 };
 
 // remove the project and all associated tasks
@@ -662,13 +666,23 @@ const removeTheProject = (e) => {
     }
   });
   // remove from project list array
+  console.log(`this is project list before the function: ${projectList}`);
   projectList.forEach((project) => {
     if (e.target.value === project) {
+      console.log(
+        `this is e target:${e.target.value} and this is project: ${project}`
+      );
+      //console.log(`this is project list right before splice: ${projectList}`);
+      console.log(projectList);
       projectList.splice(project, 1);
+      console.log(projectList);
+    } else {
     }
   });
   document.getElementById(e.target.value).remove();
+  //console.log(`this is project list after splice: ${projectList}`);
+  //console.log(projectList);
 };
 
 // initiate exports
-export { myTasks, projectList, removeTask };
+//export { myTasks, projectList, removeTask };
