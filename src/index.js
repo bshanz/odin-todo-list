@@ -673,10 +673,15 @@ const removeTheProject = (e) => {
         `this is e target:${e.target.value} and this is project: ${project}`
       );
       //console.log(`this is project list right before splice: ${projectList}`);
-      console.log(projectList);
+      console.log(
+        `this is the project that should be removed from the array: ${project}`
+      );
       projectList.splice(project, 1);
-      console.log(projectList);
+      console.log(
+        `here's the project list array: ${projectList}. Was the proper one removed?`
+      );
     } else {
+      console.log(`didn't go through`);
     }
   });
   document.getElementById(e.target.value).remove();

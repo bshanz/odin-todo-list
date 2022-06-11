@@ -2,10 +2,10 @@
 import { myTasks, removeTask } from "./index.js";
 
 export function renderAllTasks() {
-// cache dom
-const grid = document.getElementById("grid");
+  // cache dom
+  const grid = document.getElementById("grid");
 
-let taskDates = myTasks.forEach((task) => {
+  let taskDates = myTasks.forEach((task) => {
     // create elements
     const toDoCard = document.createElement("div");
     const toDoContent = document.createElement("div");
@@ -81,6 +81,4 @@ let taskDates = myTasks.forEach((task) => {
       });
     });
   });
-
-
 }
