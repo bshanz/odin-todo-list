@@ -491,14 +491,12 @@ thisWeekButton.addEventListener("click", (e) => {
   grid.innerHTML = "";
   removeProjectContainer.innerHTML = "";
   renderThisWeek();
-  //thisWeekCheck();
 });
 
 //enable user to click 'today' button
 todayButton.addEventListener("click", (e) => {
   grid.innerHTML = "";
   removeProjectContainer.innerHTML = "";
-  //todayCheck();
   renderToday();
 });
 
@@ -507,7 +505,6 @@ allButton.addEventListener("click", (e) => {
   grid.innerHTML = "";
   removeProjectContainer.innerHTML = "";
   renderAllTasks();
-  //allTasks();
 });
 
 // enable user to click project buttons. try to move the grid aspect into the event listenr
@@ -664,8 +661,8 @@ const removeTheProject = (e) => {
   // remove from project list array
   projectList.forEach((project) => {
     if (e.target.value === project) {
-      let theIndex = projectList.indexOf(project);
-      projectList.splice(theIndex, 1);
+      const indexToRemove = projectList.indexOf(project);
+      projectList.splice(indexToRemove, 1);
     } else {
     }
   });
@@ -674,3 +671,20 @@ const removeTheProject = (e) => {
 
 // initiate exports
 export { myTasks, projectList, removeTask };
+
+/*const saveEachTask = () => {
+  const localTitle = document.getElementById('id-dom');
+  const localDescription = document.getElementById('description-dom');
+  const localProject = document.getElementById('project-dom');
+  const localDate = document.getElementById('date-dom');
+  const localSubmit = document.getElementById('submitTask');
+
+  localSubmit.onclick = function () {
+    const title = localTitle.value;
+    const description = localDescription.value;
+    const project = localProject.value;
+    const date = localProject.date;
+
+    console.log(title);
+  }
+}*/
