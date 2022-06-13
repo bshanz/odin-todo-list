@@ -60,7 +60,7 @@ form.addEventListener("submit", (e) => {
   // let page load first
   e.preventDefault();
 
-  // create new book
+  // create new task
   const task1 = new Task(
     title.value,
     description.value,
@@ -72,7 +72,7 @@ form.addEventListener("submit", (e) => {
   // add ID to new task
   task1.id = `${task1.title}${task1.description}${task1.date}`;
 
-  // add new book to myTasks
+  // add new task to myTasks
   myTasks.push(task1);
 
   // close the form modal
@@ -139,10 +139,10 @@ form.addEventListener("submit", (e) => {
   removeButton.innerText = "Remove";
   removeButton.value = `${task1.title}`;
 
-  // add event listener to dynamic book card to complete it
+  // add event listener to dynamic task card to complete it
   doneButton.addEventListener("click", removeTask);
 
-  // add event listener to dynamic book card to remove it
+  // add event listener to dynamic task card to remove it
   removeButton.addEventListener("click", removeTask);
 
   // add event listener for date input
@@ -174,6 +174,14 @@ form.addEventListener("submit", (e) => {
 
     // add click event listener to the project in side bar
     newProject.addEventListener("click", viewProject);
+
+    // save each task to local storage
+    //localStorage.setItem("task-title", task1.title);
+    //localStorage.setItem("task-description", task1.description);
+    //localStorage.setItem("task-project", task1.project);
+    //localStorage.setItem("task-date", task1.date);
+    saveEachTask();
+
   } else {
   }
 });
@@ -428,13 +436,13 @@ const allTasks = () => {
   });
 };*/
 
-// enable user to delete books on window load
+// enable user to delete tasks on window load
 function removeDemoTask(e) {
   const target = e.target;
   target.parentNode.parentNode.parentNode.remove();
 }
 
-// enable user to delete dynamic books and remove from array
+// enable user to delete dynamic tasks and remove from array
 const removeTask = (e) => {
   const target = e.target;
 
@@ -571,10 +579,10 @@ const viewProject = (e) => {
       removeButton.innerText = "Remove";
       removeButton.value = `${task.title}`;
 
-      // add event listener to dynamic book card to complete it
+      // add event listener to dynamic task card to complete it
       doneButton.addEventListener("click", removeTask);
 
-      // add event listener to dynamic book card to remove it
+      // add event listener to dynamic task card to remove it
       removeButton.addEventListener("click", removeTask);
 
       // add event listener for date input
@@ -672,19 +680,87 @@ const removeTheProject = (e) => {
 // initiate exports
 export { myTasks, projectList, removeTask };
 
-/*const saveEachTask = () => {
-  const localTitle = document.getElementById('id-dom');
-  const localDescription = document.getElementById('description-dom');
-  const localProject = document.getElementById('project-dom');
-  const localDate = document.getElementById('date-dom');
-  const localSubmit = document.getElementById('submitTask');
 
-  localSubmit.onclick = function () {
-    const title = localTitle.value;
-    const description = localDescription.value;
-    const project = localProject.value;
-    const date = localProject.date;
+// save each task to local storage
+const saveEachTask = () => {
+  myTasks.forEach((task)=>{
+    localStorage.setItem(task.title, JSON.stringify(task));
+  })
+};
 
-    console.log(title);
-  }
-}*/
+// render each task from local storage
+const loadEachTask = () =>{
+  Object.keys(localStorage).forEach(function(key){
+    console.log(localStorage.getItem(key));
+    // create elements
+    const toDoCard = document.createElement("div");
+    const toDoContent = document.createElement("div");
+    const upperCard = document.createElement("div");
+    const theTitle = document.createElement("h3");
+    const theDescription = document.createElement("p");
+    const theProject = document.createElement("p");
+    const dateContainer = document.createElement("div");
+    const dateLabel = document.createElement("label");
+    const dateInput = document.createElement("input");
+    const lowerCard = document.createElement("div");
+    const doneButton = document.createElement("button");
+    const removeButton = document.createElement("button");
+
+    // append to DOM and add classes
+    // create todo card
+    grid.appendChild(toDoCard);
+    toDoCard.classList.add("todo-card");
+
+    // create content within card
+    toDoCard.appendChild(toDoContent);
+    toDoContent.classList.add("todo-content");
+
+    // create the upper portion of the card
+    toDoContent.appendChild(upperCard);
+    upperCard.classList.add("upper-card");
+
+    upperCard.appendChild(theTitle);
+    upperCard.appendChild(theDescription);
+    upperCard.appendChild(theProject);
+    upperCard.appendChild(dateContainer);
+    dateContainer.classList.add("date-container");
+    dateContainer.appendChild(dateLabel);
+    dateContainer.appendChild(dateInput);
+
+    // create lower portion of the card
+    toDoContent.appendChild(lowerCard);
+    lowerCard.classList.add("lower-card");
+
+    lowerCard.appendChild(doneButton);
+    doneButton.classList.add("button");
+
+    lowerCard.appendChild(removeButton);
+    removeButton.classList.add("remove");
+
+    // add values to title, description, date, and buttons
+    theTitle.innerText = key.title;
+    theDescription.innerText = `${key.description}`;
+    theProject.innerText = key.project;
+    dateLabel.innerText = "Due date:";
+    doneButton.innerText = "Done";
+    doneButton.value = `${key.title}`;
+    dateInput.type = "date";
+    dateInput.value = key.date;
+    dateInput.id = key.title;
+    removeButton.innerText = "Remove";
+    removeButton.value = `${key.title}`;
+
+    // add event listener to dynamic book card to complete it
+    doneButton.addEventListener("click", removeTask);
+
+    // add event listener to dynamic book card to remove it
+    removeButton.addEventListener("click", removeTask);
+ });
+}
+
+window.addEventListener('load', (event) => {
+  loadEachTask()
+});
+
+
+//localStorage.clear();
