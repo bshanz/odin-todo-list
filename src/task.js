@@ -80,7 +80,6 @@ export class Task {
       let updateTaskDate = myTasks.forEach((task) => {
         if (e.target.id === this.title) {
           this.date = e.target.value;
-        } else {
         }
       });
     });

@@ -97,8 +97,6 @@ form.addEventListener("submit", (e) => {
     //localStorage.setItem("task-project", task1.project);
     //localStorage.setItem("task-date", task1.date);
     saveEachTask();
-
-  } else {
   }
 });
 
@@ -148,7 +146,6 @@ const removeTask = (e) => {
         }
         target.parentNode.parentNode.parentNode.remove();
       }
-    } else {
     }
   });
 };
@@ -264,7 +261,6 @@ const viewProject = (e) => {
         //removeTask(e);
         removeTheProject(e);
       });
-    } else {
     }
   });
 };
@@ -287,7 +283,6 @@ const removeTheProject = (e) => {
           myTasks.splice(i, 1);
         }
       }
-    } else {
     }
   });
   // remove from project list array
@@ -295,7 +290,6 @@ const removeTheProject = (e) => {
     if (e.target.value === project) {
       const indexToRemove = projectList.indexOf(project);
       projectList.splice(indexToRemove, 1);
-    } else {
     }
   });
   document.getElementById(e.target.value).remove();
