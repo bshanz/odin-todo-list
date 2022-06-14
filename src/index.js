@@ -9,6 +9,7 @@ import {
   parseISO,
   isToday,
 } from "date-fns";
+import { Task } from './task.js';
 import { renderToday } from "./today.js";
 import { renderThisWeek } from "./thisWeek.js";
 import { renderAllTasks } from "./allTasks.js";
@@ -40,20 +41,6 @@ const removeProjectContainer = document.getElementById(
 // create task array
 const myTasks = [];
 const projectList = [];
-
-// create task class
-class Task {
-  constructor(title, description, project, date) {
-    this.title = title;
-    this.description = description;
-    this.project = project;
-    this.date = date;
-    //this.project = project;
-    this.info = function () {
-      return `${title}, ${description}, ${date}`;
-    };
-  }
-}
 
 // enable user to click submitTask
 form.addEventListener("submit", (e) => {
@@ -269,7 +256,7 @@ const thisWeekCheck = () => {
     } else {
     }
   });
-  
+
 };
 
 //function to check if the task's due date is this today
