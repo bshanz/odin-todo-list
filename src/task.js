@@ -1,4 +1,3 @@
-// create task class
 export class Task {
   constructor(title, description, project, date) {
     this.title = title;
@@ -6,8 +5,9 @@ export class Task {
     this.project = project;
     this.date = date;
     //this.project = project;
-    this.info = function () {
-      return `${title}, ${description}, ${date}`;
-    };
+  }
+
+  info() {
+      return `${this.title}, ${this.description}, ${this.date}`;
   }
 }
