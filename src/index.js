@@ -143,6 +143,8 @@ const removeTask = (e) => {
       for (let i = myTasks.length - 1; i >= 0; --i) {
         if (myTasks[i].title === e.target.value) {
           myTasks.splice(i, 1);
+          // We also need to delete this task from the storage
+          localStorage.removeItem(e.target.value);
         }
         target.parentNode.parentNode.parentNode.remove();
       }
@@ -302,7 +304,7 @@ export { myTasks, projectList, removeTask };
 // save each task to local storage
 const saveEachTask = () => {
   myTasks.forEach((task)=>{
-    localStorage.setItem(task.title, JSON.stringify(task));
+    task.writeToDisk();
   })
 };
 

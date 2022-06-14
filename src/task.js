@@ -13,6 +13,10 @@ export class Task {
     return `${this.title}, ${this.description}, ${this.date}`;
   }
 
+  writeToDisk() {
+    localStorage.setItem(this.title, JSON.stringify(this));
+  }
+
   render() {
     // create elements
     const toDoCard = document.createElement("div");
@@ -77,11 +81,9 @@ export class Task {
 
     // add event listener for date input
     dateInput.addEventListener("change", (e) => {
-      let updateTaskDate = myTasks.forEach((task) => {
-        if (e.target.id === this.title) {
-          this.date = e.target.value;
-        }
-      });
+      this.date = e.target.value;
+      console.log('Updated date for ' + this.title + ', updating local storage...');
+      this.writeToDisk();
     });
 
     return toDoCard;
