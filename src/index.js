@@ -537,70 +537,12 @@ const saveEachTask = () => {
 // render each task from local storage
 const loadEachTask = () =>{
   Object.keys(localStorage).forEach(function(key){
-    console.log(localStorage.getItem(key));
-    // create elements
-    const toDoCard = document.createElement("div");
-    const toDoContent = document.createElement("div");
-    const upperCard = document.createElement("div");
-    const theTitle = document.createElement("h3");
-    const theDescription = document.createElement("p");
-    const theProject = document.createElement("p");
-    const dateContainer = document.createElement("div");
-    const dateLabel = document.createElement("label");
-    const dateInput = document.createElement("input");
-    const lowerCard = document.createElement("div");
-    const doneButton = document.createElement("button");
-    const removeButton = document.createElement("button");
-
-    // append to DOM and add classes
-    // create todo card
+    const loadedItem = JSON.parse(localStorage.getItem(key));
+    const task = new Task(loadedItem.title, loadedItem.description,
+                          loadedItem.project, loadedItem.date);
+    myTasks.push(task);
+    const toDoCard = task.render();
     grid.appendChild(toDoCard);
-    toDoCard.classList.add("todo-card");
-
-    // create content within card
-    toDoCard.appendChild(toDoContent);
-    toDoContent.classList.add("todo-content");
-
-    // create the upper portion of the card
-    toDoContent.appendChild(upperCard);
-    upperCard.classList.add("upper-card");
-
-    upperCard.appendChild(theTitle);
-    upperCard.appendChild(theDescription);
-    upperCard.appendChild(theProject);
-    upperCard.appendChild(dateContainer);
-    dateContainer.classList.add("date-container");
-    dateContainer.appendChild(dateLabel);
-    dateContainer.appendChild(dateInput);
-
-    // create lower portion of the card
-    toDoContent.appendChild(lowerCard);
-    lowerCard.classList.add("lower-card");
-
-    lowerCard.appendChild(doneButton);
-    doneButton.classList.add("button");
-
-    lowerCard.appendChild(removeButton);
-    removeButton.classList.add("remove");
-
-    // add values to title, description, date, and buttons
-    theTitle.innerText = key.title;
-    theDescription.innerText = `${key.description}`;
-    theProject.innerText = key.project;
-    dateLabel.innerText = "Due date:";
-    doneButton.innerText = "Done";
-    doneButton.value = `${key.title}`;
-    dateInput.type = "date";
-    dateInput.value = key.date;
-    dateInput.id = key.title;
-    removeButton.innerText = "Remove";
-    removeButton.value = `${key.title}`;
-
-    // add event listener to dynamic book card to complete it
-    doneButton.addEventListener("click", removeTask);
-
-    // add event listener to dynamic book card to remove it
-    removeButton.addEventListener("click", removeTask);
  });
 }
 
