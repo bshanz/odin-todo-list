@@ -14,7 +14,9 @@ import { renderThisWeek } from "./thisWeek.js";
 import { renderAllTasks } from "./allTasks.js";
 
 /* Next tasks:
-- use local storage
+- make sure you can delete all projects with 'remove the project'
+- make sure you can add multiple tasks with same project same
+- make sure you can create multiple tasks with same project local storage
 */
 
 // cache the dom
@@ -48,7 +50,6 @@ class Task {
     this.description = description;
     this.project = project;
     this.date = date;
-    //this.project = project;
     this.info = function () {
       return `${title}, ${description}, ${date}`;
     };
@@ -148,8 +149,12 @@ form.addEventListener("submit", (e) => {
   // add event listener for date input
   dateInput.addEventListener("change", (e) => {
     let updateTaskDate = myTasks.forEach((task) => {
+      // code that updates the date regularly (not local storage)
       if (e.target.id === task1.title) {
         task1.date = e.target.value;
+
+        // code that updates local storage
+        localStorage.setItem(task1.title, JSON.stringify(task1));
       } else {
       }
     });
@@ -196,6 +201,7 @@ const removeTask = (e) => {
       for (let i = myTasks.length - 1; i >= 0; --i) {
         if (myTasks[i].title === e.target.value) {
           myTasks.splice(i, 1);
+          localStorage.removeItem(e.target.value);
         }
         target.parentNode.parentNode.parentNode.remove();
       }
@@ -335,6 +341,7 @@ const viewProject = (e) => {
         let updateTaskDate = myTasks.forEach((task) => {
           if (e.target.id === task.title) {
             task.date = e.target.value;
+            localStorage.setItem(task.title, JSON.stringify(task));
           } else {
           }
         });
@@ -406,6 +413,9 @@ const removeTheProject = (e) => {
         if (myTasks[i].project === e.target.value) {
           removeThis = myTasks[i].project;
           myTasks.splice(i, 1);
+          localStorage.removeItem(task.title);
+          console.log(`local storage should remove ${e.target.value}`);
+          console.log(myTasks);
         }
       }
     } else {
@@ -435,10 +445,10 @@ const saveEachTask = () => {
 // render each task from local storage
 const loadEachTask = () => {
   Object.keys(localStorage).forEach((key) => {
-    //console.log(key, Object[description])
-    //console.log(localStorage.getItem(key));
+    console.log(`first loop`);
     myTasks.push(JSON.parse(localStorage.getItem(key)));
     myTasks.forEach((task) => {
+      console.log(`second`);
       console.log(myTasks);
       // create elements
       const toDoCard = document.createElement("div");
@@ -503,13 +513,54 @@ const loadEachTask = () => {
 
       // add event listener to dynamic book card to remove it
       removeButton.addEventListener("click", removeTask);
-      
+
+      // add event listener for date input
+      dateInput.addEventListener("change", (e) => {
+        let updateTaskDate = myTasks.forEach((task) => {
+          if (e.target.id === task.title) {
+            task.date = e.target.value;
+            localStorage.setItem(task.title, JSON.stringify(task));
+          } else {
+          }
+        });
+      });
+
+      // create the new project button if it does not already exist
+      if (projectList.includes(task.project) === false) {
+        // push the new project to list
+        projectList.push(task.project);
+
+        // create the button element
+        const newProject = document.createElement("button");
+
+        // append the project tab
+        sidebar.appendChild(newProject);
+        newProject.classList.add("button-side");
+
+        // set it's inner text
+        newProject.innerText = task.project;
+        newProject.value = task.project;
+        newProject.id = task.project;
+
+        // add click event listener to the project in side bar
+        newProject.addEventListener("click", viewProject);
+
+        // save each task to local storage
+        saveEachTask();
+      } else {
+      }
     });
   });
 };
 
 window.addEventListener("load", (event) => {
   loadEachTask();
+});
+
+window.addEventListener("storage", () => {
+  // When local storage changes, dump the list to
+  // the console.
+  console.log(JSON.parse(window.localStorage.getItem("sampleList")));
 });
 
 //localStorage.clear();

@@ -71,14 +71,14 @@ export function renderAllTasks() {
     removeButton.addEventListener("click", removeTask);
 
     // add event listener for date input
-
     dateInput.addEventListener("change", (e) => {
-      let updateTaskDate = myTasks.forEach((task) => {
-        if (e.target.id === task.title) {
-          task.date = e.target.value;
-        } else {
-        }
+        let updateTaskDate = myTasks.forEach((task) => {
+          if (e.target.id === task.title) {
+            task.date = e.target.value;
+            localStorage.setItem(task.title, JSON.stringify(task));
+          } else {
+          }
+        });
       });
-    });
   });
 }
