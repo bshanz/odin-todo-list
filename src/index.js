@@ -15,7 +15,6 @@ import { renderAllTasks } from "./allTasks.js";
 
 /* Next tasks:
 - make sure you can delete all projects with 'remove the project'
-- make sure you can add multiple tasks with same project same
 - make sure you can create multiple tasks with same project local storage
 */
 
@@ -148,11 +147,10 @@ form.addEventListener("submit", (e) => {
 
   // add event listener for date input
   dateInput.addEventListener("change", (e) => {
-    let updateTaskDate = myTasks.forEach((task) => {
+    let updateTaskDate = myTasks.forEach((task1) => {
       // code that updates the date regularly (not local storage)
       if (e.target.id === task1.title) {
         task1.date = e.target.value;
-
         // code that updates local storage
         localStorage.setItem(task1.title, JSON.stringify(task1));
       } else {
@@ -179,11 +177,10 @@ form.addEventListener("submit", (e) => {
 
     // add click event listener to the project in side bar
     newProject.addEventListener("click", viewProject);
-
-    // save each task to local storage
-    saveEachTask();
   } else {
   }
+  // save each task to local storage
+  saveEachTask();
 });
 
 // enable user to delete tasks on window load
@@ -544,9 +541,6 @@ const loadEachTask = () => {
 
         // add click event listener to the project in side bar
         newProject.addEventListener("click", viewProject);
-
-        // save each task to local storage
-        saveEachTask();
       } else {
       }
     });
@@ -555,12 +549,6 @@ const loadEachTask = () => {
 
 window.addEventListener("load", (event) => {
   loadEachTask();
-});
-
-window.addEventListener("storage", () => {
-  // When local storage changes, dump the list to
-  // the console.
-  console.log(JSON.parse(window.localStorage.getItem("sampleList")));
 });
 
 //localStorage.clear();
