@@ -396,6 +396,7 @@ const viewProject = (e) => {
 
 // remove the project and all associated tasks
 const removeTheProject = (e) => {
+  localStorage.clear();
   const target = e.target;
   // clear the project task grid
   grid.innerHTML = "";
@@ -408,10 +409,9 @@ const removeTheProject = (e) => {
     if (e.target.value === `${task.project}`) {
       for (let i = myTasks.length - 1; i >= 0; --i) {
         if (myTasks[i].project === e.target.value) {
-          removeThis = myTasks[i].project;
           myTasks.splice(i, 1);
           localStorage.removeItem(task.title);
-          console.log(`local storage should remove ${e.target.value}`);
+          console.log(`local storage should remove ${task.title}`);
           console.log(myTasks);
         }
       }
@@ -427,6 +427,7 @@ const removeTheProject = (e) => {
     }
   });
   document.getElementById(e.target.value).remove();
+  saveEachTask();
 };
 
 // initiate exports
