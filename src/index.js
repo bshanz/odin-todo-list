@@ -14,8 +14,6 @@ import { renderThisWeek } from "./thisWeek.js";
 import { renderAllTasks } from "./allTasks.js";
 
 /* Next tasks:
-- make sure you can delete all projects with 'remove the project'
-- make sure you can create multiple tasks with same project local storage
 */
 
 // cache the dom
@@ -27,8 +25,6 @@ const title = document.getElementById("title-dom");
 const description = document.getElementById("description-dom");
 const project = document.getElementById("project-dom");
 const date = document.getElementById("date-dom");
-const exampleButtonOne = document.getElementById("example-button-1");
-const exampleButtonTwo = document.getElementById("example-button-2");
 const thisWeekButton = document.getElementById("this-week-btn");
 const todayButton = document.getElementById("today-btn");
 const allButton = document.getElementById("all-btn");
@@ -206,13 +202,6 @@ const removeTask = (e) => {
     }
   });
 };
-
-//enable user to remove demo tasks from window load
-function demoTaskRemover() {
-  exampleButtonOne.addEventListener("click", removeDemoTask);
-  exampleButtonTwo.addEventListener("click", removeDemoTask);
-}
-demoTaskRemover();
 
 // creating the modal
 // Get the modal
