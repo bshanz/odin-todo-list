@@ -13,8 +13,8 @@ import { renderToday } from "./today.js";
 import { renderThisWeek } from "./thisWeek.js";
 import { renderAllTasks } from "./allTasks.js";
 
-/* Next tasks:
-*/
+// initiate exports
+export { myTasks, projectList, removeTask };
 
 // cache the dom
 const newTask = document.getElementById("new-task");
@@ -416,9 +416,6 @@ const removeTheProject = (e) => {
   document.getElementById(e.target.value).remove();
   saveEachTask();
 };
-
-// initiate exports
-export { myTasks, projectList, removeTask };
 
 // save each task to local storage
 const saveEachTask = () => {
